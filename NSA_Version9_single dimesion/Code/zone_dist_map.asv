@@ -1,0 +1,34 @@
+clc
+CZONE=ZONE1; centd(1)=0;
+FZONE2=FZONE;
+for NSA_ZONES=1:max(FZONE(:))
+
+ZIND1=[]; ZIND2=[]; %clear memory
+ZIND1=find(FZONE==NSA_ZONES);
+ZIND2=ZIND1;
+
+for CEN=1:length(ZIND1) % get the first position
+    DIST1=[];   DIST=0;
+    for CEN1=1:length(ZIND2)
+%         DIST=(DATA(ZIND1(CEN))-DATA(ZIND2(CEN1)))^2; % if we use data
+        DIST= sqrt ( (LAT(ZIND1(CEN))-LAT(ZIND2(CEN1)))^2 * (LON(ZIND1(CEN))-LON(ZIND2(CEN1)))^2);
+        DIST1(CEN1)=DIST;
+        
+        if CEN1 >=length(ZIND2);
+            DIST=sum(DIST1)/(length(ZIND1)-1);
+            CZONE(ZIND1(CEN))=DIST;
+        end
+    end
+    
+end
+mincentd=find(CZONE == min(CZONE(find(FZONE==(NSA_ZONES)))));
+centd(NSA_ZONES)= mincentd(1);
+end
+
+FZONE2(centd)=0;
+figure(5)
+ surf(LON,LAT,FZONE)
+view([0,90])
+figure(6)
+surf(LON,LAT,FZONE2)
+view([0,90])

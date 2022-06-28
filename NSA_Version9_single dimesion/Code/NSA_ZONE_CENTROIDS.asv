@@ -1,0 +1,19 @@
+function NSA
+[rows cols] = size(FZONE)
+y = 1:rows; x = 1:cols;
+[X Y] = meshgrid(x,y);
+for i=1:1:max(FZONE(:)),
+    cY(i) = mean(Y(FZONE==i));cX(i) = mean(X(FZONE==i));
+end
+FIMG = label2rgb(FZONE); 
+figure(4);
+image(FIMG); colorbar %convert data into image
+title('Final Classified Zones')
+xlabel('Easting --->')
+ylabel('Northing ---> ')
+for i=1:1:max(FZONE(:)),
+    
+figure(4); hold on;
+plot(cX(i),cY(i),'s','MarkerEdgeColor','k','MarkerFaceColor','k','MarkerSize',8)
+            
+end

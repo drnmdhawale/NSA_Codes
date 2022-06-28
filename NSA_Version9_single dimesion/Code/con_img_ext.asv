@@ -1,0 +1,4 @@
+%convert file extension
+a='FIELD7-ZONE8.png';
+b='FIELD7-ZONE8.tif'
+imwrite(imread(a), b) 
